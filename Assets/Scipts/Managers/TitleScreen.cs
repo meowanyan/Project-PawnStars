@@ -19,11 +19,6 @@ public class TitleScreen : MonoBehaviour
         yield return null;
     }
 
-    public void Credits()
-    {
-
-    }
-
     public void Quit()
     {
         Application.Quit();

@@ -7,5 +7,6 @@ public class CharacterManager : MonoBehaviour
     private void Awake()
     {
         DontDestroyOnLoad(this);
+        this.gameObject.SetActive(false); 
     }
 }
