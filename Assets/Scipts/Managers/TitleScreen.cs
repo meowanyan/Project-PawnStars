@@ -5,7 +5,21 @@ using UnityEngine.SceneManagement;
 
 public class TitleScreen : MonoBehaviour
 {
-    [SerializeField] int sceneIndex = 1;
+    public static TitleScreen Instance;
+
+    [field:SerializeField] public int worldSceneIndex { get; private set;} = 1;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     public void StartNewGame()
     {
@@ -14,10 +28,15 @@ public class TitleScreen : MonoBehaviour
 
     public IEnumerator LoadGame()
     {
-        AsyncOperation loadingScene = SceneManager.LoadSceneAsync(sceneIndex);
+        AsyncOperation loadingScene = SceneManager.LoadSceneAsync(worldSceneIndex);
 
         yield return null;
     }
+
+    //public int GetWorldSceneIndex()
+    //{
+    //    return worldSceneIndex;
+    //}
 
     public void Quit()
     {
