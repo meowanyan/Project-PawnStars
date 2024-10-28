@@ -149,6 +149,34 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 }
             ]
+        },
+        {
+            ""name"": ""Object Interaction"",
+            ""id"": ""495dcf76-0867-4daf-8414-615ff1247262"",
+            ""actions"": [
+                {
+                    ""name"": ""New action"",
+                    ""type"": ""Button"",
+                    ""id"": ""48f07d33-9f58-45f9-9ea6-c020eec6c847"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""1df0ff4c-901e-462f-8b01-8d66f01d9ea9"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""New action"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -156,11 +184,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         // Player Movement
         m_PlayerMovement = asset.FindActionMap("Player Movement", throwIfNotFound: true);
         m_PlayerMovement_Movement = m_PlayerMovement.FindAction("Movement", throwIfNotFound: true);
+        // Object Interaction
+        m_ObjectInteraction = asset.FindActionMap("Object Interaction", throwIfNotFound: true);
+        m_ObjectInteraction_Newaction = m_ObjectInteraction.FindAction("New action", throwIfNotFound: true);
     }
 
     ~@PlayerInput()
     {
         UnityEngine.Debug.Assert(!m_PlayerMovement.enabled, "This will cause a leak and performance issues, PlayerInput.PlayerMovement.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_ObjectInteraction.enabled, "This will cause a leak and performance issues, PlayerInput.ObjectInteraction.Disable() has not been called.");
     }
 
     public void Dispose()
@@ -264,8 +296,58 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         }
     }
     public PlayerMovementActions @PlayerMovement => new PlayerMovementActions(this);
+
+    // Object Interaction
+    private readonly InputActionMap m_ObjectInteraction;
+    private List<IObjectInteractionActions> m_ObjectInteractionActionsCallbackInterfaces = new List<IObjectInteractionActions>();
+    private readonly InputAction m_ObjectInteraction_Newaction;
+    public struct ObjectInteractionActions
+    {
+        private @PlayerInput m_Wrapper;
+        public ObjectInteractionActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Newaction => m_Wrapper.m_ObjectInteraction_Newaction;
+        public InputActionMap Get() { return m_Wrapper.m_ObjectInteraction; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(ObjectInteractionActions set) { return set.Get(); }
+        public void AddCallbacks(IObjectInteractionActions instance)
+        {
+            if (instance == null || m_Wrapper.m_ObjectInteractionActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_ObjectInteractionActionsCallbackInterfaces.Add(instance);
+            @Newaction.started += instance.OnNewaction;
+            @Newaction.performed += instance.OnNewaction;
+            @Newaction.canceled += instance.OnNewaction;
+        }
+
+        private void UnregisterCallbacks(IObjectInteractionActions instance)
+        {
+            @Newaction.started -= instance.OnNewaction;
+            @Newaction.performed -= instance.OnNewaction;
+            @Newaction.canceled -= instance.OnNewaction;
+        }
+
+        public void RemoveCallbacks(IObjectInteractionActions instance)
+        {
+            if (m_Wrapper.m_ObjectInteractionActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IObjectInteractionActions instance)
+        {
+            foreach (var item in m_Wrapper.m_ObjectInteractionActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_ObjectInteractionActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public ObjectInteractionActions @ObjectInteraction => new ObjectInteractionActions(this);
     public interface IPlayerMovementActions
     {
         void OnMovement(InputAction.CallbackContext context);
+    }
+    public interface IObjectInteractionActions
+    {
+        void OnNewaction(InputAction.CallbackContext context);
     }
 }
