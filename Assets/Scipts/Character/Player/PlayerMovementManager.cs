@@ -26,8 +26,15 @@ public class PlayerMovementManager : CharacterMovementManager
         GroundMovement();
     }
 
+    private void GetMovementInputs()
+    {
+        verticalMovement = PlayerInputManager.Instance.verticalInput;
+        horizontalMovement = PlayerInputManager.Instance.horizontalInput;
+    }
+
     private void GroundMovement()
     {
+        GetMovementInputs();
         //movement direction is based of player camera's perspective
         moveDirection = PlayerCamera.Instance.transform.forward * verticalMovement;
         moveDirection = moveDirection + PlayerCamera.Instance.transform.right * horizontalMovement;

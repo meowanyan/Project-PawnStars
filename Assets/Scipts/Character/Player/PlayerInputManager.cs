@@ -23,26 +23,26 @@ public class PlayerInputManager : MonoBehaviour
         if (Instance == null) { Instance = this; }
     }
 
-    private void OnSceneChange(Scene oldScene, Scene newScene)
-    {
-        if (newScene.buildIndex == TitleScreen.Instance.worldSceneIndex)
-        {
-            Instance.enabled = true;
-        }
-        else
-        {
-            Instance.enabled = false;
-        }
-    }
+    //private void OnSceneChange(Scene oldScene, Scene newScene)
+    //{
+    //    if (newScene.buildIndex == TitleScreen.Instance.worldSceneIndex)
+    //    {
+    //        Instance.enabled = true;
+    //    }
+    //    else
+    //    {
+    //        Instance.enabled = false;
+    //    }
+    //}
 
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
 
         //Code runs on scene change
-        SceneManager.activeSceneChanged += OnSceneChange;
+        //SceneManager.activeSceneChanged += OnSceneChange;
 
-        Instance.enabled = false;
+        //Instance.enabled = false;
     }
 
     private void OnEnable()
@@ -59,7 +59,7 @@ public class PlayerInputManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        SceneManager.activeSceneChanged -= OnSceneChange;
+        //SceneManager.activeSceneChanged -= OnSceneChange;
     }
 
     private void Update()
