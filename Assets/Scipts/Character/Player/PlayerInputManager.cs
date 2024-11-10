@@ -19,9 +19,6 @@ public class PlayerInputManager : MonoBehaviour
             Instance = this;
 
         }
-
-        //Code runs on scene change
-        SceneManager.activeSceneChanged += OnSceneChange;
     }
 
     private void OnSceneChange(Scene oldScene, Scene newScene)
@@ -36,13 +33,23 @@ public class PlayerInputManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        DontDestroyOnLoad(gameObject);
+
+        //Code runs on scene change
+        SceneManager.activeSceneChanged += OnSceneChange;
+
+        Instance.enabled = false;
+    }
+
     private void OnEnable()
     {
         if (playerInput == null)
         {
             playerInput = new PlayerInput();
 
-            playerInput.PlayerMovement.Movement.performed += i => moveInput = i.ReadValue<Vector2>();
+            playerInput.PlayerMovement.Keyboard.performed += i => moveInput = i.ReadValue<Vector2>();
         }
 
         playerInput.Enable();
