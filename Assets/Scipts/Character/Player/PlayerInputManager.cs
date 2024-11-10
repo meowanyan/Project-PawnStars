@@ -6,19 +6,21 @@ using UnityEngine.SceneManagement;
 
 public class PlayerInputManager : MonoBehaviour
 {
-    public static PlayerInputManager Instance;
+    [SerializeField] public static PlayerInputManager Instance;
 
-    PlayerInput playerInput;
+    [SerializeField] public PlayerInput playerInput;
 
-    [SerializeField] Vector2 moveInput;
+    [SerializeField] public Vector2 moveInput;
+    [SerializeField] public float verticalInput;
+    [SerializeField] public float horizontalInput;
+    [SerializeField] public float moveValue;
+
+
+
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-
-        }
+        if (Instance == null) { Instance = this; }
     }
 
     private void OnSceneChange(Scene oldScene, Scene newScene)
@@ -58,5 +60,29 @@ public class PlayerInputManager : MonoBehaviour
     private void OnDestroy()
     {
         SceneManager.activeSceneChanged -= OnSceneChange;
+    }
+
+    private void Update()
+    {
+        RunMovementInput();
+    }
+
+    private void RunMovementInput()
+    {
+        verticalInput = moveInput.y;
+        horizontalInput = moveInput.x;
+
+        //returns the absolute value for movement input
+        moveValue = Mathf.Clamp01(Mathf.Abs(verticalInput) + Mathf.Abs(horizontalInput));
+
+        //moveValue is either 0, 0.5 or 1 for smoother movement
+        if (moveValue <=0.5 && moveValue > 0)
+        {
+            moveValue = 0.5f;
+        }
+        else if(moveValue > 0.5 && moveValue <= 1)
+        {
+            moveValue = 1;
+        }
     }
 }

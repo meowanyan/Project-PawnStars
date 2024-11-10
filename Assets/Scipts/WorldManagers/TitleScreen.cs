@@ -5,20 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class TitleScreen : MonoBehaviour
 {
-    public static TitleScreen Instance;
+    [SerializeField] public static TitleScreen Instance;
 
-    [field:SerializeField] public int worldSceneIndex { get; private set;} = 1;
+    [field:SerializeField] public int worldSceneIndex { get; private set; } = 1;
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        if (Instance == null) { Instance = this; }
     }
 
     public void StartNewGame()
@@ -32,11 +25,6 @@ public class TitleScreen : MonoBehaviour
 
         yield return null;
     }
-
-    //public int GetWorldSceneIndex()
-    //{
-    //    return worldSceneIndex;
-    //}
 
     public void Quit()
     {

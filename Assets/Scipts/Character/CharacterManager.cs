@@ -4,9 +4,17 @@ using UnityEngine;
 
 public class CharacterManager : MonoBehaviour
 {
-    private void Awake()
+    [SerializeField] public CharacterController characterController;
+
+    protected virtual void Awake()
     {
-        DontDestroyOnLoad(this);
-        this.gameObject.SetActive(false); 
+        DontDestroyOnLoad(this); 
+
+        characterController = GetComponent<CharacterController>();
+    }
+
+    protected virtual void Update()
+    {
+
     }
 }
