@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1067399861892429555}
     m_Modifications:
+    - target: {fileID: 968603161100889933, guid: 742986a487614314ea1e7bfa86354d34, type: 3}
+      propertyPath: playerView
+      value: 
+      objectReference: {fileID: 6270929191901201753}
     - target: {fileID: 3038102256942240556, guid: 742986a487614314ea1e7bfa86354d34, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -60,6 +64,11 @@ PrefabInstance:
 --- !u!4 &2501769418957520928 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3038102256942240556, guid: 742986a487614314ea1e7bfa86354d34, type: 3}
+  m_PrefabInstance: {fileID: 617437282638287628}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &6270929191901201753 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 6888047890554082901, guid: 742986a487614314ea1e7bfa86354d34, type: 3}
   m_PrefabInstance: {fileID: 617437282638287628}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &674013794583400728
@@ -162,14 +171,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3028fa31d6388f24994b775203557e11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 5027604722070941481}
   verticalMovement: 0
   horizontalMovement: 0
   moveValue: 0
   moveDirection: {x: 0, y: 0, z: 0}
   viewDirection: {x: 0, y: 0, z: 0}
   moveSpeed: 0
-  <rotationSpeed>k__BackingField: 0.01
+  <rotationSpeed>k__BackingField: 15
   <walkSpeed>k__BackingField: 2
   <runSpeed>k__BackingField: 5
 --- !u!143 &8163295446869714707

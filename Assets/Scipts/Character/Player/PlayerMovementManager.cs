@@ -14,7 +14,7 @@ public class PlayerMovementManager : CharacterMovementManager
     [SerializeField] public Vector3 viewDirection;
 
     [SerializeField] public float moveSpeed;
-    [field:SerializeField] public float rotationSpeed { get; private set; } = 0.1f;
+    [field:SerializeField] public float rotationSpeed { get; private set; } = 15;
     [field:SerializeField] public float walkSpeed { get; private set; } = 2;
     [field:SerializeField] public float runSpeed { get; private set; } = 5;
 
@@ -63,7 +63,6 @@ public class PlayerMovementManager : CharacterMovementManager
         viewDirection = Vector3.zero;
         viewDirection = PlayerCamera.Instance.playerView.transform.forward * verticalMovement;
         viewDirection = viewDirection + PlayerCamera.Instance.transform.right * horizontalMovement;
-        viewDirection.Normalize();
         viewDirection.y = 0;
 
         if (viewDirection == Vector3.zero)
@@ -73,6 +72,6 @@ public class PlayerMovementManager : CharacterMovementManager
 
         Quaternion newRotation = Quaternion.LookRotation(viewDirection);
         Quaternion targetRotation = Quaternion.Slerp(transform.rotation, newRotation, rotationSpeed * Time.deltaTime);
-        transform.rotation = newRotation;
+        transform.rotation = targetRotation;
     }
 }
