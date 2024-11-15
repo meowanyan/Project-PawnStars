@@ -9,12 +9,17 @@ public class PlayerInputManager : MonoBehaviour
 
     [SerializeField] public PlayerInput playerInput;
 
+    //WASD keyboard movement
     [SerializeField] public Vector2 moveInput;
-    [SerializeField] public float verticalInput;
-    [SerializeField] public float horizontalInput;
+    [SerializeField] public float verticalKeyInput;
+    [SerializeField] public float horizontalKeyInput;
     [SerializeField] public float moveValue;
 
-
+    //Mouse rotation
+    [SerializeField] public Vector2 mouseInput;
+    [SerializeField] public float verticalMouseInput;
+    [SerializeField] public float horizontalMouseInput;
+    [SerializeField] public float rotateValue;
 
 
     private void Awake()
@@ -51,6 +56,7 @@ public class PlayerInputManager : MonoBehaviour
             playerInput = new PlayerInput();
 
             playerInput.PlayerMovement.Keyboard.performed += i => moveInput = i.ReadValue<Vector2>();
+            playerInput.PlayerLook.Mouse.performed += i => mouseInput = i.ReadValue<Vector2>();
         }
 
         playerInput.Enable();
@@ -64,15 +70,16 @@ public class PlayerInputManager : MonoBehaviour
     private void Update()
     {
         RunMovementInput();
+        RunMouseInput();
     }
 
     private void RunMovementInput()
     {
-        verticalInput = moveInput.y;
-        horizontalInput = moveInput.x;
+        verticalKeyInput = moveInput.y;
+        horizontalKeyInput = moveInput.x;
 
         //returns the absolute value for movement input
-        moveValue = Mathf.Clamp01(Mathf.Abs(verticalInput) + Mathf.Abs(horizontalInput));
+        moveValue = Mathf.Clamp01(Mathf.Abs(verticalKeyInput) + Mathf.Abs(horizontalKeyInput));
 
         //moveValue is either 0, 0.5 or 1 for smoother movement
         if (moveValue <=0.5 && moveValue > 0)
@@ -83,5 +90,13 @@ public class PlayerInputManager : MonoBehaviour
         {
             moveValue = 1;
         }
+    }
+
+    private void RunMouseInput()
+    {
+        verticalMouseInput = mouseInput.y;
+        horizontalMouseInput = mouseInput.x;
+
+        //rotateValue = Mathf.Clamp01(Mathf.Abs(verticalMouseInput) + Mathf.Abs(horizontalMouseInput));
     }
 }

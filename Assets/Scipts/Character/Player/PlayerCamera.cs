@@ -8,6 +8,11 @@ public class PlayerCamera : MonoBehaviour
 
     [SerializeField] public Camera playerView;
 
+    [SerializeField] public float verticalCameraMovement;
+    [SerializeField] public float horizontalCameraMovement;
+    [SerializeField] public float rotateValue;
+    [SerializeField] public float cameraSensitivity;
+
     private void Awake()
     {
         if (Instance == null) {Instance = this;}
@@ -16,5 +21,11 @@ public class PlayerCamera : MonoBehaviour
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
+    }
+
+    private void GetMouseInput()
+    {
+        verticalCameraMovement = PlayerInputManager.Instance.verticalMouseInput;
+
     }
 }

@@ -5,16 +5,19 @@ using UnityEngine;
 public class PlayerMovementManager : CharacterMovementManager
 {
     [SerializeField] public PlayerManager player;
+    [SerializeField] public GameObject playerObject;
+    [SerializeField] public Camera playerView;
 
     [SerializeField] public float verticalMovement;
     [SerializeField] public float horizontalMovement;
     [SerializeField] public float moveValue;
 
-    [SerializeField] public Vector3 moveDirection;
-    [SerializeField] public Vector3 viewDirection;
+    [SerializeField] public float verticalCameraMovement;
+    [SerializeField] public float horizontalCameraMovement;
+    [SerializeField] public float rotateValue;
+    [SerializeField] public float cameraSensitivity;
 
-    [SerializeField] public float moveSpeed;
-    [field:SerializeField] public float rotationSpeed { get; private set; } = 15;
+    [SerializeField] public Vector3 moveDirection;
     [field:SerializeField] public float walkSpeed { get; private set; } = 2;
     [field:SerializeField] public float runSpeed { get; private set; } = 5;
 
@@ -28,21 +31,21 @@ public class PlayerMovementManager : CharacterMovementManager
     public void RunAllMovement()
     {
         GroundMovement();
-        RotationMovement();
     }
 
     private void GetMovementInputs()
     {
-        verticalMovement = PlayerInputManager.Instance.verticalInput;
-        horizontalMovement = PlayerInputManager.Instance.horizontalInput;
+        verticalMovement = PlayerInputManager.Instance.verticalKeyInput;
+        horizontalMovement = PlayerInputManager.Instance.horizontalKeyInput;
     }
 
+    //For later implementation
     private void GroundMovement()
     {
         GetMovementInputs();
         //movement direction is based of player camera's perspective
-        moveDirection = PlayerCamera.Instance.transform.forward * verticalMovement;
-        moveDirection = moveDirection + PlayerCamera.Instance.transform.right * horizontalMovement;
+        moveDirection = playerObject.transform.forward * verticalMovement;
+        moveDirection = moveDirection + playerObject.transform.right * horizontalMovement;
         moveDirection.Normalize();
         moveDirection.y = 0;
 
@@ -50,6 +53,7 @@ public class PlayerMovementManager : CharacterMovementManager
         {
             //running speed
             player.characterController.Move(moveDirection * runSpeed * Time.deltaTime);
+            
         }
         else if (PlayerInputManager.Instance.moveValue <= 0.5f)
         {
@@ -58,20 +62,25 @@ public class PlayerMovementManager : CharacterMovementManager
         }
     }
 
-    private void RotationMovement()
+    //private void RotationMovement()
+    //{
+    //    viewDirection = Vector3.zero;
+    //    viewDirection = PlayerCamera.Instance.playerView.transform.forward * verticalMovement;
+    //    viewDirection = viewDirection + PlayerCamera.Instance.transform.right * horizontalMovement;
+    //    viewDirection.y = 0;
+
+    //    if (viewDirection == Vector3.zero)
+    //    {
+    //        viewDirection = transform.forward;
+    //    }
+
+    //    Quaternion newRotation = Quaternion.LookRotation(viewDirection);
+    //    Quaternion targetRotation = Quaternion.Slerp(transform.rotation, newRotation, rotationSpeed * Time.deltaTime);
+    //    transform.rotation = targetRotation;
+    //}
+
+    private void PlayerLook()
     {
-        viewDirection = Vector3.zero;
-        viewDirection = PlayerCamera.Instance.playerView.transform.forward * verticalMovement;
-        viewDirection = viewDirection + PlayerCamera.Instance.transform.right * horizontalMovement;
-        viewDirection.y = 0;
 
-        if (viewDirection == Vector3.zero)
-        {
-            viewDirection = transform.forward;
-        }
-
-        Quaternion newRotation = Quaternion.LookRotation(viewDirection);
-        Quaternion targetRotation = Quaternion.Slerp(transform.rotation, newRotation, rotationSpeed * Time.deltaTime);
-        transform.rotation = targetRotation;
     }
 }
