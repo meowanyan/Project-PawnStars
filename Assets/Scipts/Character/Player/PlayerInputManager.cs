@@ -19,7 +19,6 @@ public class PlayerInputManager : MonoBehaviour
     [SerializeField] public Vector2 mouseInput;
     [SerializeField] public float verticalMouseInput;
     [SerializeField] public float horizontalMouseInput;
-    [SerializeField] public float rotateValue;
 
 
     private void Awake()
@@ -55,8 +54,8 @@ public class PlayerInputManager : MonoBehaviour
         {
             playerInput = new PlayerInput();
 
-            playerInput.PlayerMovement.Keyboard.performed += i => moveInput = i.ReadValue<Vector2>();
-            playerInput.PlayerLook.Mouse.performed += i => mouseInput = i.ReadValue<Vector2>();
+            playerInput.PlayerMovement.Walk.performed += i => moveInput = i.ReadValue<Vector2>();
+            playerInput.PlayerLook.LookAround.performed += i => mouseInput = i.ReadValue<Vector2>();
         }
 
         playerInput.Enable();
@@ -67,7 +66,7 @@ public class PlayerInputManager : MonoBehaviour
         //SceneManager.activeSceneChanged -= OnSceneChange;
     }
 
-    private void Update()
+    public void RunInputs()
     {
         RunMovementInput();
         RunMouseInput();
@@ -96,7 +95,5 @@ public class PlayerInputManager : MonoBehaviour
     {
         verticalMouseInput = mouseInput.y;
         horizontalMouseInput = mouseInput.x;
-
-        //rotateValue = Mathf.Clamp01(Mathf.Abs(verticalMouseInput) + Mathf.Abs(horizontalMouseInput));
     }
 }

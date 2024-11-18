@@ -28,7 +28,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             ""id"": ""9e6c1adb-6685-4074-a043-78e3fb09f03b"",
             ""actions"": [
                 {
-                    ""name"": ""Keyboard"",
+                    ""name"": ""Walk"",
                     ""type"": ""PassThrough"",
                     ""id"": ""7244fc1f-f4b2-4620-957d-28dff7e17eeb"",
                     ""expectedControlType"": ""Vector2"",
@@ -45,7 +45,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Keyboard"",
+                    ""action"": ""Walk"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -56,7 +56,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Keyboard"",
+                    ""action"": ""Walk"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -67,7 +67,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Keyboard"",
+                    ""action"": ""Walk"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -78,7 +78,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Keyboard"",
+                    ""action"": ""Walk"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -89,7 +89,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Keyboard"",
+                    ""action"": ""Walk"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 }
@@ -100,13 +100,22 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             ""id"": ""ceb8ca17-61de-4361-a1fc-8dafa06cf989"",
             ""actions"": [
                 {
-                    ""name"": ""Mouse"",
-                    ""type"": ""Value"",
+                    ""name"": ""LookAround"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""5c384bb9-0e44-4da2-9a43-1d158692461d"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Inspection"",
+                    ""type"": ""Button"",
+                    ""id"": ""38491f34-35c5-4342-8a16-0321d5b2d22a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -117,35 +126,18 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Mouse"",
+                    ""action"": ""LookAround"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
-            ""name"": ""New action map"",
-            ""id"": ""333b51ce-2cb4-4e12-b8ea-e25544d24374"",
-            ""actions"": [
-                {
-                    ""name"": ""New action"",
-                    ""type"": ""Button"",
-                    ""id"": ""7b7da363-226e-4386-bfb4-d5cd270b361b"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
+                },
                 {
                     ""name"": """",
-                    ""id"": ""2fb1ed1e-3b3b-4cbb-9044-6eb7e54f841c"",
-                    ""path"": """",
+                    ""id"": ""5a60de1c-96e2-4a0a-8faa-c966a2468ed5"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""New action"",
+                    ""action"": ""Inspection"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -156,20 +148,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
 }");
         // Player Movement
         m_PlayerMovement = asset.FindActionMap("Player Movement", throwIfNotFound: true);
-        m_PlayerMovement_Keyboard = m_PlayerMovement.FindAction("Keyboard", throwIfNotFound: true);
+        m_PlayerMovement_Walk = m_PlayerMovement.FindAction("Walk", throwIfNotFound: true);
         // Player Look
         m_PlayerLook = asset.FindActionMap("Player Look", throwIfNotFound: true);
-        m_PlayerLook_Mouse = m_PlayerLook.FindAction("Mouse", throwIfNotFound: true);
-        // New action map
-        m_Newactionmap = asset.FindActionMap("New action map", throwIfNotFound: true);
-        m_Newactionmap_Newaction = m_Newactionmap.FindAction("New action", throwIfNotFound: true);
+        m_PlayerLook_LookAround = m_PlayerLook.FindAction("LookAround", throwIfNotFound: true);
+        m_PlayerLook_Inspection = m_PlayerLook.FindAction("Inspection", throwIfNotFound: true);
     }
 
     ~@PlayerInput()
     {
         UnityEngine.Debug.Assert(!m_PlayerMovement.enabled, "This will cause a leak and performance issues, PlayerInput.PlayerMovement.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_PlayerLook.enabled, "This will cause a leak and performance issues, PlayerInput.PlayerLook.Disable() has not been called.");
-        UnityEngine.Debug.Assert(!m_Newactionmap.enabled, "This will cause a leak and performance issues, PlayerInput.Newactionmap.Disable() has not been called.");
     }
 
     public void Dispose()
@@ -231,12 +220,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     // Player Movement
     private readonly InputActionMap m_PlayerMovement;
     private List<IPlayerMovementActions> m_PlayerMovementActionsCallbackInterfaces = new List<IPlayerMovementActions>();
-    private readonly InputAction m_PlayerMovement_Keyboard;
+    private readonly InputAction m_PlayerMovement_Walk;
     public struct PlayerMovementActions
     {
         private @PlayerInput m_Wrapper;
         public PlayerMovementActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Keyboard => m_Wrapper.m_PlayerMovement_Keyboard;
+        public InputAction @Walk => m_Wrapper.m_PlayerMovement_Walk;
         public InputActionMap Get() { return m_Wrapper.m_PlayerMovement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -246,16 +235,16 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_PlayerMovementActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_PlayerMovementActionsCallbackInterfaces.Add(instance);
-            @Keyboard.started += instance.OnKeyboard;
-            @Keyboard.performed += instance.OnKeyboard;
-            @Keyboard.canceled += instance.OnKeyboard;
+            @Walk.started += instance.OnWalk;
+            @Walk.performed += instance.OnWalk;
+            @Walk.canceled += instance.OnWalk;
         }
 
         private void UnregisterCallbacks(IPlayerMovementActions instance)
         {
-            @Keyboard.started -= instance.OnKeyboard;
-            @Keyboard.performed -= instance.OnKeyboard;
-            @Keyboard.canceled -= instance.OnKeyboard;
+            @Walk.started -= instance.OnWalk;
+            @Walk.performed -= instance.OnWalk;
+            @Walk.canceled -= instance.OnWalk;
         }
 
         public void RemoveCallbacks(IPlayerMovementActions instance)
@@ -277,12 +266,14 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     // Player Look
     private readonly InputActionMap m_PlayerLook;
     private List<IPlayerLookActions> m_PlayerLookActionsCallbackInterfaces = new List<IPlayerLookActions>();
-    private readonly InputAction m_PlayerLook_Mouse;
+    private readonly InputAction m_PlayerLook_LookAround;
+    private readonly InputAction m_PlayerLook_Inspection;
     public struct PlayerLookActions
     {
         private @PlayerInput m_Wrapper;
         public PlayerLookActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Mouse => m_Wrapper.m_PlayerLook_Mouse;
+        public InputAction @LookAround => m_Wrapper.m_PlayerLook_LookAround;
+        public InputAction @Inspection => m_Wrapper.m_PlayerLook_Inspection;
         public InputActionMap Get() { return m_Wrapper.m_PlayerLook; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -292,16 +283,22 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_PlayerLookActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_PlayerLookActionsCallbackInterfaces.Add(instance);
-            @Mouse.started += instance.OnMouse;
-            @Mouse.performed += instance.OnMouse;
-            @Mouse.canceled += instance.OnMouse;
+            @LookAround.started += instance.OnLookAround;
+            @LookAround.performed += instance.OnLookAround;
+            @LookAround.canceled += instance.OnLookAround;
+            @Inspection.started += instance.OnInspection;
+            @Inspection.performed += instance.OnInspection;
+            @Inspection.canceled += instance.OnInspection;
         }
 
         private void UnregisterCallbacks(IPlayerLookActions instance)
         {
-            @Mouse.started -= instance.OnMouse;
-            @Mouse.performed -= instance.OnMouse;
-            @Mouse.canceled -= instance.OnMouse;
+            @LookAround.started -= instance.OnLookAround;
+            @LookAround.performed -= instance.OnLookAround;
+            @LookAround.canceled -= instance.OnLookAround;
+            @Inspection.started -= instance.OnInspection;
+            @Inspection.performed -= instance.OnInspection;
+            @Inspection.canceled -= instance.OnInspection;
         }
 
         public void RemoveCallbacks(IPlayerLookActions instance)
@@ -319,62 +316,13 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         }
     }
     public PlayerLookActions @PlayerLook => new PlayerLookActions(this);
-
-    // New action map
-    private readonly InputActionMap m_Newactionmap;
-    private List<INewactionmapActions> m_NewactionmapActionsCallbackInterfaces = new List<INewactionmapActions>();
-    private readonly InputAction m_Newactionmap_Newaction;
-    public struct NewactionmapActions
-    {
-        private @PlayerInput m_Wrapper;
-        public NewactionmapActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Newaction => m_Wrapper.m_Newactionmap_Newaction;
-        public InputActionMap Get() { return m_Wrapper.m_Newactionmap; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(NewactionmapActions set) { return set.Get(); }
-        public void AddCallbacks(INewactionmapActions instance)
-        {
-            if (instance == null || m_Wrapper.m_NewactionmapActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_NewactionmapActionsCallbackInterfaces.Add(instance);
-            @Newaction.started += instance.OnNewaction;
-            @Newaction.performed += instance.OnNewaction;
-            @Newaction.canceled += instance.OnNewaction;
-        }
-
-        private void UnregisterCallbacks(INewactionmapActions instance)
-        {
-            @Newaction.started -= instance.OnNewaction;
-            @Newaction.performed -= instance.OnNewaction;
-            @Newaction.canceled -= instance.OnNewaction;
-        }
-
-        public void RemoveCallbacks(INewactionmapActions instance)
-        {
-            if (m_Wrapper.m_NewactionmapActionsCallbackInterfaces.Remove(instance))
-                UnregisterCallbacks(instance);
-        }
-
-        public void SetCallbacks(INewactionmapActions instance)
-        {
-            foreach (var item in m_Wrapper.m_NewactionmapActionsCallbackInterfaces)
-                UnregisterCallbacks(item);
-            m_Wrapper.m_NewactionmapActionsCallbackInterfaces.Clear();
-            AddCallbacks(instance);
-        }
-    }
-    public NewactionmapActions @Newactionmap => new NewactionmapActions(this);
     public interface IPlayerMovementActions
     {
-        void OnKeyboard(InputAction.CallbackContext context);
+        void OnWalk(InputAction.CallbackContext context);
     }
     public interface IPlayerLookActions
     {
-        void OnMouse(InputAction.CallbackContext context);
-    }
-    public interface INewactionmapActions
-    {
-        void OnNewaction(InputAction.CallbackContext context);
+        void OnLookAround(InputAction.CallbackContext context);
+        void OnInspection(InputAction.CallbackContext context);
     }
 }

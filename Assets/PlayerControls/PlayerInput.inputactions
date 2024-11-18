@@ -6,7 +6,7 @@
             "id": "9e6c1adb-6685-4074-a043-78e3fb09f03b",
             "actions": [
                 {
-                    "name": "Keyboard",
+                    "name": "Walk",
                     "type": "PassThrough",
                     "id": "7244fc1f-f4b2-4620-957d-28dff7e17eeb",
                     "expectedControlType": "Vector2",
@@ -23,7 +23,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Keyboard",
+                    "action": "Walk",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -34,7 +34,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Keyboard",
+                    "action": "Walk",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -45,7 +45,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Keyboard",
+                    "action": "Walk",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -56,7 +56,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Keyboard",
+                    "action": "Walk",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -67,7 +67,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Keyboard",
+                    "action": "Walk",
                     "isComposite": false,
                     "isPartOfComposite": true
                 }
@@ -78,13 +78,22 @@
             "id": "ceb8ca17-61de-4361-a1fc-8dafa06cf989",
             "actions": [
                 {
-                    "name": "Mouse",
-                    "type": "Value",
+                    "name": "LookAround",
+                    "type": "PassThrough",
                     "id": "5c384bb9-0e44-4da2-9a43-1d158692461d",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Inspection",
+                    "type": "Button",
+                    "id": "38491f34-35c5-4342-8a16-0321d5b2d22a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -95,35 +104,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Mouse",
+                    "action": "LookAround",
                     "isComposite": false,
                     "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "New action map",
-            "id": "333b51ce-2cb4-4e12-b8ea-e25544d24374",
-            "actions": [
-                {
-                    "name": "New action",
-                    "type": "Button",
-                    "id": "7b7da363-226e-4386-bfb4-d5cd270b361b",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
+                },
                 {
                     "name": "",
-                    "id": "2fb1ed1e-3b3b-4cbb-9044-6eb7e54f841c",
-                    "path": "",
+                    "id": "5a60de1c-96e2-4a0a-8faa-c966a2468ed5",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "Inspection",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
