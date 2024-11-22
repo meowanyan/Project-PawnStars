@@ -87,6 +87,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "MousePosition",
+                    "type": "PassThrough",
+                    "id": "06ec433f-402a-4314-a780-8709c5de5d8b",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Inspection",
                     "type": "Button",
                     "id": "38491f34-35c5-4342-8a16-0321d5b2d22a",
@@ -116,6 +125,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Inspection",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7b29a6f3-0e2f-4a12-bca1-07ab2363cb8e",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MousePosition",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

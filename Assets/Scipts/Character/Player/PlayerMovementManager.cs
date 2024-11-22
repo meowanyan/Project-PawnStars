@@ -17,6 +17,9 @@ public class PlayerMovementManager : CharacterMovementManager
 
     [SerializeField] public Vector3 moveDirection;
     [SerializeField] public Vector2 turnDirection;
+    [SerializeField] public Vector2 mousePos;
+
+    [SerializeField] public RaycastHit selectInfo;
 
     [field:SerializeField] public float walkSpeed { get; private set; } = 2;
     [field:SerializeField] public float runSpeed { get; private set; } = 5;
@@ -45,6 +48,7 @@ public class PlayerMovementManager : CharacterMovementManager
         horizontalMovement = PlayerInputManager.Instance.horizontalKeyInput;
         verticalCameraMovement = PlayerInputManager.Instance.verticalMouseInput;
         horizontalCameraMovement = PlayerInputManager.Instance.horizontalMouseInput;
+        mousePos += PlayerInputManager.Instance.mousePosition;
     }
 
     private void GroundMovement()
@@ -77,6 +81,9 @@ public class PlayerMovementManager : CharacterMovementManager
         turnDirection.x = Mathf.Clamp(turnDirection.x, -clampValue, clampValue);
 
         //This is for moving the actual gameobject or camera
-        playerView.transform.rotation = Quaternion.Euler(-turnDirection.x, turnDirection.y, 0);
+        playerObject.transform.rotation = Quaternion.Euler(-turnDirection.x, turnDirection.y, 0);
+
+        Debug.DrawRay(playerView.transform.position, playerView.transform.forward * 10f, Color.green);
+
     }
 }

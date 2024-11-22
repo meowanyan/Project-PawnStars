@@ -10,11 +10,6 @@ public class PlayerInteractionManager : MonoBehaviour
     [SerializeField] public GameObject crosshair;
     [SerializeField] public Camera playerView;
 
-    [SerializeField] public Vector2 pointDelta;
-    [SerializeField] public Vector2 pointDirection;
-
-    [SerializeField] public RaycastHit selectInfo;
-
     [Range(0f, 50f)]
     [SerializeField] float size = 20f;
 

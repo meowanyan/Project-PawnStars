@@ -488,6 +488,18 @@ PrefabInstance:
       propertyPath: playerInputManager
       value: 
       objectReference: {fileID: 1256696415}
+    - target: {fileID: 1386741131151967948, guid: 742986a487614314ea1e7bfa86354d34, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 2026790614}
+    - target: {fileID: 1386741131151967948, guid: 742986a487614314ea1e7bfa86354d34, type: 3}
+      propertyPath: m_RenderMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1550337570133274892, guid: 742986a487614314ea1e7bfa86354d34, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3038102256942240556, guid: 742986a487614314ea1e7bfa86354d34, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -635,6 +647,26 @@ PrefabInstance:
     - target: {fileID: 4596647759871005573, guid: 742986a487614314ea1e7bfa86354d34, type: 3}
       propertyPath: OnAwake.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6888047890554082901, guid: 742986a487614314ea1e7bfa86354d34, type: 3}
+      propertyPath: field of view
+      value: 58.715508
+      objectReference: {fileID: 0}
+    - target: {fileID: 6888047890554082901, guid: 742986a487614314ea1e7bfa86354d34, type: 3}
+      propertyPath: m_FocalLength
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 6888047890554082901, guid: 742986a487614314ea1e7bfa86354d34, type: 3}
+      propertyPath: near clip plane
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6888047890554082901, guid: 742986a487614314ea1e7bfa86354d34, type: 3}
+      propertyPath: m_projectionMatrixMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7005039520347880537, guid: 742986a487614314ea1e7bfa86354d34, type: 3}
+      propertyPath: m_CameraType
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8886096772303003063, guid: 742986a487614314ea1e7bfa86354d34, type: 3}
       propertyPath: m_Name

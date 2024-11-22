@@ -109,6 +109,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""MousePosition"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""06ec433f-402a-4314-a780-8709c5de5d8b"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Inspection"",
                     ""type"": ""Button"",
                     ""id"": ""38491f34-35c5-4342-8a16-0321d5b2d22a"",
@@ -140,6 +149,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Inspection"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7b29a6f3-0e2f-4a12-bca1-07ab2363cb8e"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MousePosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -152,6 +172,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         // Player Look
         m_PlayerLook = asset.FindActionMap("Player Look", throwIfNotFound: true);
         m_PlayerLook_LookAround = m_PlayerLook.FindAction("LookAround", throwIfNotFound: true);
+        m_PlayerLook_MousePosition = m_PlayerLook.FindAction("MousePosition", throwIfNotFound: true);
         m_PlayerLook_Inspection = m_PlayerLook.FindAction("Inspection", throwIfNotFound: true);
     }
 
@@ -267,12 +288,14 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_PlayerLook;
     private List<IPlayerLookActions> m_PlayerLookActionsCallbackInterfaces = new List<IPlayerLookActions>();
     private readonly InputAction m_PlayerLook_LookAround;
+    private readonly InputAction m_PlayerLook_MousePosition;
     private readonly InputAction m_PlayerLook_Inspection;
     public struct PlayerLookActions
     {
         private @PlayerInput m_Wrapper;
         public PlayerLookActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @LookAround => m_Wrapper.m_PlayerLook_LookAround;
+        public InputAction @MousePosition => m_Wrapper.m_PlayerLook_MousePosition;
         public InputAction @Inspection => m_Wrapper.m_PlayerLook_Inspection;
         public InputActionMap Get() { return m_Wrapper.m_PlayerLook; }
         public void Enable() { Get().Enable(); }
@@ -286,6 +309,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @LookAround.started += instance.OnLookAround;
             @LookAround.performed += instance.OnLookAround;
             @LookAround.canceled += instance.OnLookAround;
+            @MousePosition.started += instance.OnMousePosition;
+            @MousePosition.performed += instance.OnMousePosition;
+            @MousePosition.canceled += instance.OnMousePosition;
             @Inspection.started += instance.OnInspection;
             @Inspection.performed += instance.OnInspection;
             @Inspection.canceled += instance.OnInspection;
@@ -296,6 +322,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @LookAround.started -= instance.OnLookAround;
             @LookAround.performed -= instance.OnLookAround;
             @LookAround.canceled -= instance.OnLookAround;
+            @MousePosition.started -= instance.OnMousePosition;
+            @MousePosition.performed -= instance.OnMousePosition;
+            @MousePosition.canceled -= instance.OnMousePosition;
             @Inspection.started -= instance.OnInspection;
             @Inspection.performed -= instance.OnInspection;
             @Inspection.canceled -= instance.OnInspection;
@@ -323,6 +352,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     public interface IPlayerLookActions
     {
         void OnLookAround(InputAction.CallbackContext context);
+        void OnMousePosition(InputAction.CallbackContext context);
         void OnInspection(InputAction.CallbackContext context);
     }
 }

@@ -21,7 +21,7 @@ public class PlayerInputManager : MonoBehaviour
 
     //Mouse rotation
     [SerializeField] public Vector2 mouseInput;
-    [SerializeField] public Vector2 mouseDelta;
+    [SerializeField] public Vector2 mousePosition;
     [SerializeField] public float verticalMouseInput;
     [SerializeField] public float horizontalMouseInput;
 
@@ -60,6 +60,7 @@ public class PlayerInputManager : MonoBehaviour
 
             playerInput.PlayerMovement.Walk.performed += i => moveInput = i.ReadValue<Vector2>();
             playerInput.PlayerLook.LookAround.performed += i => mouseInput = i.ReadValue<Vector2>();
+            playerInput.PlayerLook.MousePosition.performed += i => mousePosition = i.ReadValue<Vector2>();
             playerInput.PlayerLook.Inspection.performed += RunMouseClick;
 
         }
