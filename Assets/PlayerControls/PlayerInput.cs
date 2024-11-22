@@ -106,7 +106,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": true
+                    ""initialStateCheck"": false
                 },
                 {
                     ""name"": ""Inspection"",
@@ -132,7 +132,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""5a60de1c-96e2-4a0a-8faa-c966a2468ed5"",
+                    ""id"": ""308ce5c9-a0e2-4abc-9267-6e66c6a6f520"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
