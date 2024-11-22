@@ -17,9 +17,10 @@ public class PlayerMovementManager : CharacterMovementManager
 
     [SerializeField] public Vector3 moveDirection;
     [SerializeField] public Vector2 turnDirection;
+
     [field:SerializeField] public float walkSpeed { get; private set; } = 2;
     [field:SerializeField] public float runSpeed { get; private set; } = 5;
-    [Range (0f, 30f)]
+    [Range (0f, 100f)]
     [SerializeField] float cameraSensitivity = 20;
     [field: SerializeField] public float clampValue { get; private set; } = 60;
 
@@ -32,7 +33,7 @@ public class PlayerMovementManager : CharacterMovementManager
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.lockState = CursorLockMode.Locked;
     }
-    public void RunAllMovement()
+    public void Update()
     {
         GroundMovement();
         PlayerLook();
@@ -55,6 +56,7 @@ public class PlayerMovementManager : CharacterMovementManager
         moveDirection.Normalize();
         moveDirection.y = 0;
 
+        //This to allow for walking and running if ever, default is running speed for now
         if (PlayerInputManager.Instance.moveValue > 0.5f)
         {
             //running speed
@@ -71,8 +73,10 @@ public class PlayerMovementManager : CharacterMovementManager
     private void PlayerLook()
     {
         turnDirection += new Vector2(verticalCameraMovement, horizontalCameraMovement) * cameraSensitivity * Time.deltaTime;
+        //This is to restrict the player's view range of looking up and down
         turnDirection.x = Mathf.Clamp(turnDirection.x, -clampValue, clampValue);
 
+        //This is for moving the actual gameobject or camera
         playerView.transform.rotation = Quaternion.Euler(-turnDirection.x, turnDirection.y, 0);
     }
 }

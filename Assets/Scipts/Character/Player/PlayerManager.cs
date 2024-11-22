@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class PlayerManager : CharacterManager
 {
-    [SerializeField] public UnityEvent OnUpdate;
+    [SerializeField] public UnityEvent OnAwake;
 
     //Whatever is scripted in CharacterManager may apply here + whatever stuff is needed for Player
     [SerializeField] public PlayerInputManager playerInputManager;
@@ -19,6 +19,8 @@ public class PlayerManager : CharacterManager
 
         playerMovementManager = GetComponent<PlayerMovementManager>();
         playerInteractionManager = GetComponent<PlayerInteractionManager>();
+
+        OnAwake.Invoke();
     }
 
     protected override void Update()
@@ -26,7 +28,6 @@ public class PlayerManager : CharacterManager
         //Update function is overridden from Character Manager
         base.Update();
 
-        OnUpdate.Invoke();
     }
 
 

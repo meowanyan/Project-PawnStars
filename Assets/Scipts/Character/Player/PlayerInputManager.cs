@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class PlayerInputManager : MonoBehaviour
@@ -8,6 +10,8 @@ public class PlayerInputManager : MonoBehaviour
     [SerializeField] public static PlayerInputManager Instance;
 
     [SerializeField] public PlayerInput playerInput;
+
+    [SerializeField] public UnityEvent OnClick;
 
     //WASD keyboard movement
     [SerializeField] public Vector2 moveInput;
@@ -17,9 +21,9 @@ public class PlayerInputManager : MonoBehaviour
 
     //Mouse rotation
     [SerializeField] public Vector2 mouseInput;
+    [SerializeField] public Vector2 mouseDelta;
     [SerializeField] public float verticalMouseInput;
     [SerializeField] public float horizontalMouseInput;
-
 
     private void Awake()
     {
@@ -56,6 +60,8 @@ public class PlayerInputManager : MonoBehaviour
 
             playerInput.PlayerMovement.Walk.performed += i => moveInput = i.ReadValue<Vector2>();
             playerInput.PlayerLook.LookAround.performed += i => mouseInput = i.ReadValue<Vector2>();
+            playerInput.PlayerLook.Inspection.performed += RunMouseClick;
+
         }
 
         playerInput.Enable();
@@ -66,7 +72,7 @@ public class PlayerInputManager : MonoBehaviour
         //SceneManager.activeSceneChanged -= OnSceneChange;
     }
 
-    public void RunInputs()
+    public void Update()
     {
         RunMovementInput();
         RunMouseInput();
@@ -95,5 +101,10 @@ public class PlayerInputManager : MonoBehaviour
     {
         verticalMouseInput = mouseInput.y;
         horizontalMouseInput = mouseInput.x;
+    }
+
+    private void RunMouseClick(InputAction.CallbackContext context)
+    {
+        OnClick.Invoke();
     }
 }

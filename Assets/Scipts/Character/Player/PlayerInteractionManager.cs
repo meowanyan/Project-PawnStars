@@ -5,8 +5,15 @@ using UnityEngine;
 public class PlayerInteractionManager : MonoBehaviour
 {
     [SerializeField] public PlayerManager player;
+    [SerializeField] public PlayerInputManager playerInputManager;
 
     [SerializeField] public GameObject crosshair;
+    [SerializeField] public Camera playerView;
+
+    [SerializeField] public Vector2 pointDelta;
+    [SerializeField] public Vector2 pointDirection;
+
+    [SerializeField] public RaycastHit selectInfo;
 
     [Range(0f, 50f)]
     [SerializeField] float size = 20f;
@@ -18,5 +25,8 @@ public class PlayerInteractionManager : MonoBehaviour
         player = GetComponent<PlayerManager>();
     }
 
-
+    public void SelectGameObject()
+    {
+        Debug.Log("MOUSE CLICK");
+    }
 }
